@@ -162,7 +162,7 @@ OPT += -DNDEBUG
 ifneq ($(USE_RTTI), 1)
 	CXXFLAGS += -fno-rtti
 else
-	CXXFLAGS += -DROCKSDB_USE_RTTI
+	CXXFLAGS += -DROCKSDB_USE_RTTI -frtti
 endif
 else
 ifneq ($(USE_RTTI), 0)

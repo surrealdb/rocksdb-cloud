@@ -7,6 +7,7 @@
 
 #include "rocksdb/cloud/cloud_file_system.h"
 #include "rocksdb/db.h"
+#include "rocksdb/utilities/optimistic_transaction_db.h"
 #include "rocksdb/utilities/stackable_db.h"
 
 namespace ROCKSDB_NAMESPACE {
@@ -67,6 +68,7 @@ class DBCloud : public StackableDB {
 
  protected:
   explicit DBCloud(DB* db) : StackableDB(db) {}
+  explicit DBCloud(std::shared_ptr<DB> db) : StackableDB(db) {}
 };
 
 }  // namespace ROCKSDB_NAMESPACE

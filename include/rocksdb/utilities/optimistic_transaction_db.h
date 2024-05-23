@@ -117,7 +117,6 @@ class OptimisticTransactionDB : public StackableDB {
       const OptimisticTransactionOptions& txn_options =
           OptimisticTransactionOptions(),
       Transaction* old_txn = nullptr) = 0;
-
   OptimisticTransactionDB(const OptimisticTransactionDB&) = delete;
   void operator=(const OptimisticTransactionDB&) = delete;
 
