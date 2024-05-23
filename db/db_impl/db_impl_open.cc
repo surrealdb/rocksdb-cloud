@@ -1095,8 +1095,8 @@ Status DBImpl::RecoverLogFiles(const std::vector<uint64_t>& wal_numbers,
                                bool* corrupted_wal_found,
                                RecoveryContext* recovery_ctx) {
   if (immutable_db_options_.replication_log_listener) {
-      // No WALs if replication_log_listener exists
-      return Status::OK();
+    // No WALs if replication_log_listener exists
+    return Status::OK();
   }
 
   struct LogReporter : public log::Reader::Reporter {
@@ -1126,8 +1126,7 @@ Status DBImpl::RecoverLogFiles(const std::vector<uint64_t>& wal_numbers,
   int job_id = next_job_id_.fetch_add(1);
   {
     auto stream = event_logger_.Log();
-    stream << "job" << job_id << "event"
-           << "recovery_started";
+    stream << "job" << job_id << "event" << "recovery_started";
     stream << "wal_files";
     stream.StartArray();
     for (auto wal_number : wal_numbers) {
@@ -1549,8 +1548,7 @@ Status DBImpl::RecoverLogFiles(const std::vector<uint64_t>& wal_numbers,
     }
   }
 
-  event_logger_.Log() << "job" << job_id << "event"
-                      << "recovery_finished";
+  event_logger_.Log() << "job" << job_id << "event" << "recovery_finished";
 
   return status;
 }
@@ -2256,7 +2254,6 @@ Status DBImpl::Open(const DBOptions& db_options, const std::string& dbname,
     sfm->ReserveDiskBuffer(max_write_buffer_size,
                            impl->immutable_db_options_.db_paths[0].path);
   }
-
 
   if (s.ok()) {
     ROCKS_LOG_HEADER(impl->immutable_db_options_.info_log, "DB pointer %p",

@@ -43,9 +43,8 @@
 #include "db/version_edit_handler.h"
 #include "db/wide/wide_columns_helper.h"
 #include "file/file_util.h"
-#include "table/compaction_merging_iterator.h"
-
 #include "rocksdb/slice.h"
+#include "table/compaction_merging_iterator.h"
 #if USE_COROUTINES
 #include "folly/experimental/coro/BlockingWait.h"
 #include "folly/experimental/coro/Collect.h"
@@ -2671,7 +2670,7 @@ void Version::MultiGet(const ReadOptions& read_options, MultiGetRange* range,
           f = fp.GetNextFileInLevel();
           // RocksDB-Cloud contribution begin
           if (f) {
-            // We have another file to read. This implies that the read on 
+            // We have another file to read. This implies that the read on
             // this file was blocked (or serialized) behind the previous read.
             PERF_COUNTER_ADD(multiget_sst_serialized_file_read_count, 1);
           }
@@ -3055,7 +3054,7 @@ Status Version::MultiGetAsync(
           } else {
             // RocksDB-Cloud contribution begin
             // We still need to read files in the current level despite running
-            // some rounds of coroutine parallel reads. Record the fact that 
+            // some rounds of coroutine parallel reads. Record the fact that
             // file reads were serialized.
             PERF_COUNTER_ADD(multiget_sst_serialized_file_read_count, 1);
             // RocksDB-Cloud contribution end
@@ -5432,7 +5431,8 @@ Status VersionSet::ProcessManifestWrites(
 
     for (auto& e : batch_edits) {
       if (!db_options_->replication_log_listener &&
-          !e->HasManifestUpdateSequence() && pending_manifest_update_sequence == 0) {
+          !e->HasManifestUpdateSequence() &&
+          pending_manifest_update_sequence == 0) {
         // No physical replication, skip
         continue;
       }
@@ -5442,7 +5442,8 @@ Status VersionSet::ProcessManifestWrites(
       if (e->HasManifestUpdateSequence()) {
         // Update already has the manifest update sequence, verify that it's
         // correct
-        if (e->GetManifestUpdateSequence() != pending_manifest_update_sequence) {
+        if (e->GetManifestUpdateSequence() !=
+            pending_manifest_update_sequence) {
           std::ostringstream oss;
           oss << "Gap in ManifestUpdateSequence while writing to manifest, "
                  "expected="

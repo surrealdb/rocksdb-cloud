@@ -12,13 +12,14 @@ LIB_SOURCES =                                                   \
   cache/secondary_cache.cc                                      \
   cache/secondary_cache_adapter.cc                              \
   cache/sharded_cache.cc                                        \
-  cache/tiered_secondary_cache.cc				                \
+  cache/tiered_secondary_cache.cc				                        \
   cloud/aws/aws_file_system.cc                                  \
   cloud/aws/aws_kafka.cc                                        \
   cloud/aws/aws_kinesis.cc                                      \
   cloud/aws/aws_retry.cc                                        \
   cloud/aws/aws_s3.cc                                           \
   cloud/db_cloud_impl.cc                                        \
+  cloud/cloud_optimistic_transaction_db_impl.cc                 \
   cloud/cloud_file_system.cc                                    \
   cloud/cloud_file_system_impl.cc                               \
   cloud/cloud_log_controller.cc                                 \

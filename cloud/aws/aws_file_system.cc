@@ -215,6 +215,7 @@ Status AwsFileSystem::NewAwsFileSystem(
       new AwsFileSystem(fs, cloud_options, info_log));
   auto env =
       CloudFileSystemEnv::NewCompositeEnvFromFs(afs.get(), Env::Default());
+
   ConfigOptions config_options;
   config_options.env = env.get();
   status = afs->PrepareOptions(config_options);
