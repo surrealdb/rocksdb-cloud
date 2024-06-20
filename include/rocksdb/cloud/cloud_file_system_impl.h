@@ -293,7 +293,7 @@ class CloudFileSystemImpl : public CloudFileSystem {
   Status CheckValidity() const;
   // Status TEST_Initialize(const std::string& name) override;
   // The pathname that contains a list of all db's inside a bucket.
-  virtual const char* kDbIdRegistry() const { return "/.rockset/dbid/"; }
+  virtual const char* kDbIdRegistry() const { return "/.cloud/dbid/"; }
 
   std::string GetDbIdKey(const std::string& dbid) {
     return kDbIdRegistry() + dbid;

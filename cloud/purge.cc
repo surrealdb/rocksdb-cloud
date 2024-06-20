@@ -6,11 +6,11 @@
 #include <chrono>
 #include <set>
 
-#include "rocksdb/cloud/cloud_file_system_impl.h"
 #include "cloud/db_cloud_impl.h"
 #include "cloud/filename.h"
 #include "cloud/manifest_reader.h"
 #include "file/filename.h"
+#include "rocksdb/cloud/cloud_file_system_impl.h"
 #include "rocksdb/cloud/cloud_storage_provider.h"
 #include "rocksdb/db.h"
 #include "rocksdb/options.h"
@@ -201,7 +201,7 @@ IOStatus CloudFileSystemImpl::extractParents(
   for (auto iter = dbid_list.begin(); iter != dbid_list.end(); ++iter) {
     // download IDENTITY
     std::string cloudfile = iter->second + "/IDENTITY";
-    std::string localfile = scratch + "/.rockset_IDENTITY." + random;
+    std::string localfile = scratch + "/.cloud_IDENTITY." + random;
     st = GetStorageProvider()->GetCloudObject(bucket_name_prefix, cloudfile,
                                               localfile);
     if (!st.ok() && !st.IsNotFound()) {
