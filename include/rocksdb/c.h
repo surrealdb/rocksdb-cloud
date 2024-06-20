@@ -3026,6 +3026,7 @@ typedef struct rocksdb_cloud_db_t rocksdb_cloud_db_t;
 typedef struct rocksdb_cloud_otxn_db_t rocksdb_cloud_otxn_db_t;
 typedef struct rocksdb_cloud_fs_options_t rocksdb_cloud_fs_options_t;
 typedef struct rocksdb_cloud_bucket_options_t rocksdb_cloud_bucket_options_t;
+typedef struct rocksdb_cloud_kafka_log_options_t rocksdb_cloud_kafka_log_options_t;
 
 // Cloud FS options
 
@@ -3043,6 +3044,9 @@ extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_src_bucket(
 
 extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_dest_bucket(
     rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_bucket_options_t* bucket);
+
+extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_kafka_log(
+    rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_kafka_log_options_t* log);
 
 // Cloud Bucket options
 
@@ -3077,6 +3081,27 @@ rocksdb_cloud_bucket_options_get_object_path(
 
 extern ROCKSDB_LIBRARY_API bool rocksdb_cloud_bucket_options_is_valid(
     rocksdb_cloud_bucket_options_t* opts);
+
+// Cloud Kafka log options
+
+extern ROCKSDB_LIBRARY_API rocksdb_cloud_kafka_log_options_t*
+rocksdb_cloud_kafka_log_options_create(void);
+
+extern ROCKSDB_LIBRARY_API void rocksdb_cloud_kafka_log_options_destroy(
+    rocksdb_cloud_kafka_log_options_t* opts);
+
+extern ROCKSDB_LIBRARY_API rocksdb_cloud_kafka_log_options_t*
+rocksdb_cloud_kafka_log_options_create_copy(
+    rocksdb_cloud_kafka_log_options_t* opts);
+
+extern ROCKSDB_LIBRARY_API void rocksdb_cloud_kafka_log_options_set_broker_list(
+    rocksdb_cloud_kafka_log_options_t* opts, const char* broker_list);
+
+extern ROCKSDB_LIBRARY_API const char* rocksdb_cloud_kafka_log_options_get_broker_list(
+    rocksdb_cloud_kafka_log_options_t* opts);
+
+extern ROCKSDB_LIBRARY_API bool rocksdb_cloud_kafka_log_options_is_valid(
+    rocksdb_cloud_kafka_log_options_t* opts);
 
 // Cloud operations
 extern ROCKSDB_LIBRARY_API rocksdb_cloud_otxn_db_t* rocksdb_cloud_otxn_open(

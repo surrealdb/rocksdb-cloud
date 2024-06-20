@@ -99,9 +99,11 @@ using ROCKSDB_NAMESPACE::HyperClockCacheOptions;
 using ROCKSDB_NAMESPACE::InfoLogLevel;
 using ROCKSDB_NAMESPACE::IngestExternalFileOptions;
 using ROCKSDB_NAMESPACE::Iterator;
+using ROCKSDB_NAMESPACE::KafkaLogOptions;
 using ROCKSDB_NAMESPACE::LevelMetaData;
 using ROCKSDB_NAMESPACE::LiveFileMetaData;
 using ROCKSDB_NAMESPACE::Logger;
+using ROCKSDB_NAMESPACE::LogType;
 using ROCKSDB_NAMESPACE::LRUCacheOptions;
 using ROCKSDB_NAMESPACE::MemoryAllocator;
 using ROCKSDB_NAMESPACE::MemoryUtil;
@@ -6923,6 +6925,10 @@ struct rocksdb_cloud_bucket_options_t {
   BucketOptions rep;
 };
 
+struct rocksdb_cloud_kafka_log_options_t {
+  KafkaLogOptions rep;
+};
+
 // CloudFileSystemOptions
 
 rocksdb_cloud_fs_options_t* rocksdb_cloud_fs_options_create() {
@@ -6946,6 +6952,13 @@ void rocksdb_cloud_fs_options_set_src_bucket(
 void rocksdb_cloud_fs_options_set_dest_bucket(
     rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_bucket_options_t* bucket) {
   opts->rep.dest_bucket = bucket->rep;
+}
+
+void rocksdb_cloud_fs_options_set_kafka_log(
+    rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_kafka_log_options_t* log) {
+  opts->rep.keep_local_log_files = false;
+  opts->rep.log_type = LogType::kLogKafka;
+  opts->rep.kafka_log_options = log->rep;
 }
 
 // CloudBucketOptions
@@ -6996,6 +7009,41 @@ const char* rocksdb_cloud_bucket_options_get_object_path(
 bool rocksdb_cloud_bucket_options_is_valid(
     rocksdb_cloud_bucket_options_t* opts) {
   return opts->rep.IsValid();
+}
+
+// KafkaLogOptions
+rocksdb_cloud_kafka_log_options_t* rocksdb_cloud_kafka_log_options_create() {
+  return new rocksdb_cloud_kafka_log_options_t;
+}
+
+void rocksdb_cloud_kafka_log_options_destroy(
+    rocksdb_cloud_kafka_log_options_t* opts) {
+  delete opts;
+}
+
+rocksdb_cloud_kafka_log_options_t* rocksdb_cloud_kafka_log_options_create_copy(
+    rocksdb_cloud_kafka_log_options_t* opts) {
+  return new rocksdb_cloud_kafka_log_options_t(*opts);
+}
+
+void rocksdb_cloud_kafka_log_options_set_broker_list(
+    rocksdb_cloud_kafka_log_options_t* opts, const char* broker_list) {
+  opts->rep.client_config_params["metadata.broker.list"] =
+      std::string(broker_list);
+}
+
+const char* rocksdb_cloud_kafka_log_options_get_broker_list(
+    rocksdb_cloud_kafka_log_options_t* opts) {
+  return opts->rep.client_config_params["metadata.broker.list"].c_str();
+}
+
+bool rocksdb_cloud_kafka_log_options_is_valid(
+    rocksdb_cloud_kafka_log_options_t* opts) {
+  if (opts->rep.client_config_params.find("metadata.broker.list") ==
+      opts->rep.client_config_params.end()) {
+    return false;
+  }
+  return true;
 }
 
 // Cloud actions
