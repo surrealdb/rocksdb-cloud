@@ -43,7 +43,7 @@ namespace kinesis {
 class KinesisWritableFile : public CloudLogWritableFile {
  public:
   KinesisWritableFile(
-      Env* env, CloudFileSystem* cloud_fs, const std::string& fname,
+      std::shared_ptr<Env> env, std::shared_ptr<CloudFileSystem> cloud_fs, const std::string& fname,
       const FileOptions& options,
       const std::shared_ptr<Aws::Kinesis::KinesisClient>& kinesis_client)
       : CloudLogWritableFile(env, cloud_fs, fname, options),

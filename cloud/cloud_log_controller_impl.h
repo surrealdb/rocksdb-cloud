@@ -72,8 +72,8 @@ class CloudLogControllerImpl : public CloudLogController {
   static bool ExtractLogRecord(const Slice& input, uint32_t* operation,
                                Slice* filename, uint64_t* offset_in_file,
                                uint64_t* file_size, Slice* data);
-  Env* env_;
-  CloudFileSystem* cloud_fs_;
+  std::shared_ptr<Env> env_;
+  std::shared_ptr<CloudFileSystem> cloud_fs_;
   Status status_;
   std::string cache_dir_;
   // A cache of pathnames to their open file _escriptors

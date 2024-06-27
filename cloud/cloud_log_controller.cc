@@ -21,7 +21,7 @@
 #include "util/string_util.h"
 
 namespace ROCKSDB_NAMESPACE {
-CloudLogWritableFile::CloudLogWritableFile(Env* env, CloudFileSystem* cloud_fs,
+CloudLogWritableFile::CloudLogWritableFile(std::shared_ptr<Env> env, std::shared_ptr<CloudFileSystem> cloud_fs,
                                            const std::string& fname,
                                            const FileOptions& /*options*/)
     : env_(env), cloud_fs_(cloud_fs), fname_(fname) {}
@@ -59,9 +59,11 @@ CloudLogControllerImpl::~CloudLogControllerImpl() {
 }
 
 Status CloudLogControllerImpl::PrepareOptions(const ConfigOptions& options) {
-  env_ = options.env;
+  std::shared_ptr<Env> env;
+  env.reset(options.env);
+  env_ = env;
   assert(env_);
-  cloud_fs_ = dynamic_cast<CloudFileSystem*>(env_->GetFileSystem().get());
+  cloud_fs_ = std::dynamic_pointer_cast<CloudFileSystem>(env_->GetFileSystem());
   assert(cloud_fs_);
   // Create a random number for the cache directory.
   const std::string uid = trim(env_->GenerateUniqueId());

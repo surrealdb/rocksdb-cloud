@@ -29,7 +29,7 @@ class KafkaWritableFile : public CloudLogWritableFile {
  public:
   static const std::chrono::microseconds kFlushTimeout;
 
-  KafkaWritableFile(Env* env, CloudFileSystem* cloud_fs,
+  KafkaWritableFile(std::shared_ptr<Env> env, std::shared_ptr<CloudFileSystem> cloud_fs,
                     const std::string& fname, const FileOptions& options,
                     std::shared_ptr<RdKafka::Producer> producer,
                     std::shared_ptr<RdKafka::Topic> topic)

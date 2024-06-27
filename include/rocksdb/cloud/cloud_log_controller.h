@@ -17,7 +17,7 @@ class Env;
 //
 class CloudLogWritableFile : public FSWritableFile {
  public:
-  CloudLogWritableFile(Env* env, CloudFileSystem* cloud_fs,
+  CloudLogWritableFile(std::shared_ptr<Env> env, std::shared_ptr<CloudFileSystem> cloud_fs,
                        const std::string& fname, const FileOptions& options);
 
   IOStatus Flush(const IOOptions& /*opts*/, IODebugContext* /*dbg*/) override {
@@ -36,8 +36,8 @@ class CloudLogWritableFile : public FSWritableFile {
   virtual IOStatus LogDelete() = 0;
 
  protected:
-  Env* env_;
-  CloudFileSystem* cloud_fs_;
+  std::shared_ptr<Env> env_;
+  std::shared_ptr<CloudFileSystem> cloud_fs_;
   std::string fname_;
   IOStatus status_;
 };
