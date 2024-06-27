@@ -7033,6 +7033,15 @@ void rocksdb_cloud_kafka_log_options_set_broker_list(
       std::string(broker_list);
 }
 
+void rocksdb_cloud_kafka_log_options_set_api_version_request(
+    rocksdb_cloud_kafka_log_options_t* opts, const bool enabled) {
+  if (enabled) {
+    opts->rep.client_config_params["api.version.request"] = "true";
+  } else {
+    opts->rep.client_config_params["api.version.request"] = "false";
+  }
+}
+
 const char* rocksdb_cloud_kafka_log_options_get_broker_list(
     rocksdb_cloud_kafka_log_options_t* opts) {
   return opts->rep.client_config_params["metadata.broker.list"].c_str();

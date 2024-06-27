@@ -3097,6 +3097,9 @@ rocksdb_cloud_kafka_log_options_create_copy(
 extern ROCKSDB_LIBRARY_API void rocksdb_cloud_kafka_log_options_set_broker_list(
     rocksdb_cloud_kafka_log_options_t* opts, const char* broker_list);
 
+extern ROCKSDB_LIBRARY_API void rocksdb_cloud_kafka_log_options_set_api_version_request(
+    rocksdb_cloud_kafka_log_options_t* opts, const bool enabled);
+
 extern ROCKSDB_LIBRARY_API const char* rocksdb_cloud_kafka_log_options_get_broker_list(
     rocksdb_cloud_kafka_log_options_t* opts);
 
