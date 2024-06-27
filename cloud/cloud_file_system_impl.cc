@@ -2201,6 +2201,7 @@ Status CloudFileSystemImpl::PrepareOptions(const ConfigOptions& options) {
       status = CloudLogController::CreateFromString(
           options, CloudLogControllerImpl::kKafka(),
           &cloud_fs_options.cloud_log_controller);
+      cloud_fs_options.Dump(info_log_.get());
     } else {
       status = Status::NotSupported("Unsupported log controller type");
     }
