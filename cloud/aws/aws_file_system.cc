@@ -221,6 +221,7 @@ Status AwsFileSystem::NewAwsFileSystem(
   status = afs->PrepareOptions(config_options);
   if (status.ok()) {
     *cfs = afs.release();
+    env.release();
   }
   return status;
 }
