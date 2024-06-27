@@ -3124,7 +3124,7 @@ extern ROCKSDB_LIBRARY_API rocksdb_optimistictransactiondb_t*
 rocksdb_cloud_otxn_get_txn_db(rocksdb_cloud_otxn_db_t* otxn_db);
 
 extern ROCKSDB_LIBRARY_API rocksdb_cloud_fs_t* rocksdb_cloud_fs_create(
-    rocksdb_cloud_fs_options_t* options, char** errptr);
+    rocksdb_cloud_fs_options_t* options, int log_level, char** errptr);
 
 extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_destroy(
     rocksdb_cloud_fs_t* cfs);

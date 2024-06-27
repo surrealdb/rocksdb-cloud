@@ -53,6 +53,7 @@
 #include "rocksdb/write_batch.h"
 #include "rocksdb/write_buffer_manager.h"
 #include "util/cast_util.h"
+#include "util/stderr_logger.h"
 #include "utilities/merge_operators.h"
 
 using ROCKSDB_NAMESPACE::AwsCloudAccessCredentials;
@@ -7119,14 +7120,15 @@ rocksdb_optimistictransactiondb_t* rocksdb_cloud_otxn_get_txn_db(
 }
 
 rocksdb_cloud_fs_t* rocksdb_cloud_fs_create(rocksdb_cloud_fs_options_t* options,
-                                            char** errptr) {
+                                            int log_level, char** errptr) {
   Aws::InitAPI(Aws::SDKOptions());
 
   CloudFileSystem* cfs;
+  auto logger = std::make_shared<rocksdb::StderrLogger>(static_cast<InfoLogLevel>(log_level));
 
   if (SaveError(errptr,
                 CloudFileSystemEnv::NewAwsFileSystem(
-                    FileSystem::Default(), options->rep, nullptr, &cfs))) {
+                    FileSystem::Default(), options->rep, logger, &cfs))) {
     return nullptr;
   }
 
