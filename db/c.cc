@@ -6955,6 +6955,11 @@ void rocksdb_cloud_fs_options_set_dest_bucket(
   opts->rep.dest_bucket = bucket->rep;
 }
 
+void rocksdb_cloud_fs_options_set_keep_local_sst_files(
+    rocksdb_cloud_fs_options_t* opts, bool val) {
+  opts->rep.keep_local_sst_files = val;
+}
+
 void rocksdb_cloud_fs_options_set_kafka_log(
     rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_kafka_log_options_t* log) {
   opts->rep.keep_local_log_files = false;

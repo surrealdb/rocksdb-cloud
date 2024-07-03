@@ -3045,6 +3045,9 @@ extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_src_bucket(
 extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_dest_bucket(
     rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_bucket_options_t* bucket);
 
+extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_keep_local_sst_files(
+    rocksdb_cloud_fs_options_t* opts, bool val);
+
 extern ROCKSDB_LIBRARY_API void rocksdb_cloud_fs_options_set_kafka_log(
     rocksdb_cloud_fs_options_t* opts, rocksdb_cloud_kafka_log_options_t* log);
 
