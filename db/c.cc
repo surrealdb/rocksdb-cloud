@@ -7094,7 +7094,9 @@ rocksdb_optimistictransactiondb_t* rocksdb_cloud_otxn_get_txn_db(
 
 rocksdb_cloud_fs_t* rocksdb_cloud_fs_create(rocksdb_cloud_fs_options_t* options,
                                             char** errptr) {
-  Aws::InitAPI(Aws::SDKOptions());
+  Aws::SDKOptions aws_options;
+  aws_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+  Aws::InitAPI(aws_options);
 
   CloudFileSystem* cfs;
 
